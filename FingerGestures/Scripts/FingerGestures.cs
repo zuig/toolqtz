@@ -119,8 +119,9 @@ public class FingerGestures : MonoBehaviour
         return false;
     }
 
-    void InitInputProvider()
+    private void InitInputProvider()
     {
+        /*
         InputProviderEvent e = new InputProviderEvent();
 
         if( IsTouchScreenPlatform( Application.platform ) )
@@ -129,29 +130,44 @@ public class FingerGestures : MonoBehaviour
             e.inputProviderPrefab = mouseInputProviderPrefab;
 
         // let other scripts on the same game object override the e.inputProviderPrefab if they want to install a different one
-        gameObject.SendMessage( "OnSelectInputProvider", e, SendMessageOptions.DontRequireReceiver );
+     //   gameObject.SendMessage( "OnSelectInputProvider", e, SendMessageOptions.DontRequireReceiver );
+        */
 
         // install it
-        InstallInputProvider( e.inputProviderPrefab );
+        //InstallInputProvider( e.inputProviderPrefab );
+        InstallInputProvider( );
     }
 
-    public void InstallInputProvider( FGInputProvider inputProviderPrefab )
+    //private void InstallInputProvider( FGInputProvider inputProviderPrefab )
+    private void InstallInputProvider( )
     {
+        /*
         if( !inputProviderPrefab )
         {
             Debug.LogError( "Invalid InputProvider (null)" );
             return;
         }
+        */
 
-        Debug.Log( "FingerGestures: using " + inputProviderPrefab.name );
+//        Debug.Log( "FingerGestures: using " + inputProviderPrefab.name );
 
         // remove any existing one
         if( inputProvider )
             Destroy( inputProvider.gameObject );
-        
-        inputProvider = Instantiate( inputProviderPrefab ) as FGInputProvider;
-        inputProvider.name = inputProviderPrefab.name;
-        inputProvider.transform.parent = this.transform;
+        GameObject providerGo = new GameObject();
+        if (IsTouchScreenPlatform(Application.platform)) {
+            string prefabName = "Touch Input Provider";
+            Debug.Log("FingerGestures: using " + prefabName);
+            inputProvider = providerGo.AddComponent<FGTouchInputProvider>();// FGInputProvider;
+            inputProvider.name = prefabName;
+            inputProvider.transform.parent = this.transform;
+        } else {
+            string prefabName = "Mouse Input Provider";
+            Debug.Log("FingerGestures: using " + prefabName);
+            inputProvider = providerGo.AddComponent<FGMouseInputProvider>(); //Instantiate( inputProviderPrefab ) as FGInputProvider;
+            inputProvider.name = prefabName;
+            inputProvider.transform.parent = this.transform;
+        }
 
         // Create fingers & gesture recognizers
         InitFingers( MaxFingers );
@@ -534,7 +550,8 @@ public class FingerGestures : MonoBehaviour
         if( detectUnityRemote && Input.touchCount > 0 && inputProvider.GetType() != touchInputProviderPrefab.GetType() )
         {
             Debug.Log( "UnityRemote presence detected. Switching to touch input." );
-            InstallInputProvider( touchInputProviderPrefab );
+            //InstallInputProvider( touchInputProviderPrefab );
+            InstallInputProvider( );
             detectUnityRemote = false;
             
             return; // skip a frame
