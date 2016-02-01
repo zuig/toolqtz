@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResMgr", "ResMgr.csproj", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UITween", "UITween.csproj", "{56EE0A6F-4AA7-46E0-A426-87A256C97834}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FingerGestures", "FingerGestures.csproj", "{F7640858-FB19-4BD8-93EB-339E2113587F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{56EE0A6F-4AA7-46E0-A426-87A256C97834}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56EE0A6F-4AA7-46E0-A426-87A256C97834}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56EE0A6F-4AA7-46E0-A426-87A256C97834}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7640858-FB19-4BD8-93EB-339E2113587F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7640858-FB19-4BD8-93EB-339E2113587F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7640858-FB19-4BD8-93EB-339E2113587F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7640858-FB19-4BD8-93EB-339E2113587F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
