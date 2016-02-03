@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LitJson", "LitJson.csproj", "{8EAE7BC6-5747-4DD6-9FC1-5CB5246E941B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResMgr", "ResMgr.csproj", "{7ED107F9-0FD0-49A4-8782-DC00C74F6D39}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8EAE7BC6-5747-4DD6-9FC1-5CB5246E941B} = {8EAE7BC6-5747-4DD6-9FC1-5CB5246E941B}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UITween", "UITween.csproj", "{56EE0A6F-4AA7-46E0-A426-87A256C97834}"
 EndProject

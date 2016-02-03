@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\ResMgr.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -46,6 +47,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PathologicalGames\PoolManager\*.cs" />
+    <Compile Include="ResMgr\*.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="LitJson.csproj">
+      <Project>{8eae7bc6-5747-4dd6-9fc1-5cb5246e941b}</Project>
+      <Name>LitJson</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
