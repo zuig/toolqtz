@@ -199,7 +199,7 @@ namespace PathologicalGames
         /// You can also just destroy the GameObject directly to achieve the same result.
         /// This is really only here to make it easier when a reference isn't at hand.
         /// </summary>
-        /// <param name="spawnPool"></param>
+        /// <param name="poolName"></param>
         public bool Destroy(string poolName)
         {
             // Use TryGetValue to avoid KeyNotFoundException.
@@ -228,7 +228,6 @@ namespace PathologicalGames
         /// You can also just destroy the GameObjects directly to achieve the same result.
         /// This is really only here to make it easier when a reference isn't at hand.
         /// </summary>
-        /// <param name="spawnPool"></param>
         public void DestroyAll()
         {
             foreach (KeyValuePair<string, SpawnPool> pair in this._pools)
@@ -327,8 +326,8 @@ namespace PathologicalGames
         /// Used to get a SpawnPool when the user is not sure if the pool name is used.
         /// This is faster than checking IsPool(poolName) and then accessing Pools][poolName.]
         /// </summary>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
+        /// <param name="poolName"></param>
+        /// <param name="spawnPool"></param>
         /// <returns></returns>
         public bool TryGetValue(string poolName, out SpawnPool spawnPool)
         {

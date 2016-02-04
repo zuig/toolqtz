@@ -131,7 +131,7 @@ public abstract class FingerEventDetector : MonoBehaviour
     public bool SendMessageToSelection = true;
     public GameObject MessageTarget = null;
 
-    FingerGestures.Finger activeFinger;
+    //FingerGestures.Finger activeFinger;
     ScreenRaycastData lastRaycast = new ScreenRaycastData();
 
     protected abstract void ProcessFinger( FingerGestures.Finger finger );

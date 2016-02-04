@@ -8,9 +8,17 @@ using System.Text;
 /// </summary>
 public class AssetList
 {
+    /// <summary>
+    /// 资源索引文件名
+    /// </summary>
     public static string kAssetListFileName = "asset_list.json";
+    /// <summary>
+    /// 平台名称，资源打包目标平台
+    /// </summary>
     public string platform = "";
-    // 从资源路径获取包名
+    /// <summary>
+    ///  从资源路径获取包名
+    /// </summary>
     public Dictionary<string, string> files = new Dictionary<string, string>();
 }
 
@@ -19,7 +27,13 @@ public class AssetList
 /// </summary>
 public class LuaList
 {
+    /// <summary>
+    /// lua脚本文件名列表
+    /// </summary>
     public static string kLuaListFileName = "lua_list.json";
+    /// <summary>
+    /// 
+    /// </summary>
     public Dictionary<string, string> files = new Dictionary<string, string>();
 }
 

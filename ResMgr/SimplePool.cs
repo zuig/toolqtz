@@ -1,5 +1,9 @@
-﻿/********************************************************************
-    Copyright (c) 2015,广州擎天柱网络科技有限公司
+﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using PathologicalGames;
+/**
+ *  Copyright (c) 2015,广州擎天柱网络科技有限公司
     All rights reserved.
 
     文件名称：SimplePool.cs
@@ -12,15 +16,13 @@
     修改描述：整理代码以符合Q6项目
     修改标识：zon 2015/12/18
 *********************************************************************/
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using PathologicalGames;
-
 public class SimplePool : MonoBehaviour
 {
     private const string CONTAINER_NAME = "SimplePool";
     private static SimplePool _instance;
+    /// <summary>
+    /// 对象池单例
+    /// </summary>
     public static SimplePool Instance
     {
         get

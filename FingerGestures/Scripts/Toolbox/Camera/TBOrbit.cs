@@ -101,7 +101,7 @@ public class TBOrbit : MonoBehaviour
     Vector3 idealPanOffset = Vector3.zero;
     Vector3 panOffset = Vector3.zero;
 
-    PinchRecognizer pinchRecognizer;
+    //PinchRecognizer pinchRecognizer;
 
     public float Distance
     {

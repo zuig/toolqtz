@@ -368,8 +368,8 @@ public class FingerGestures : MonoBehaviour
         float distFromStart = 0;
         bool moved = false;
         bool filteredOut = true; // is this finger being filtered out?
-        Collider collider;
-        Collider prevCollider;
+        //Collider collider;
+        //Collider prevCollider;
         float elapsedTimeStationary = 0;
         List<GestureRecognizer> gestureRecognizers = new List<GestureRecognizer>();
         Dictionary<string, object> extendedProperties = new Dictionary<string,object>();

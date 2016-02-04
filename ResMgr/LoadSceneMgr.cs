@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (c) 2015,广州擎天柱网络科技有限公司
  * All rights reserved.
  *
@@ -27,7 +27,7 @@ public class LoadingBar : MonoBehaviour
     }
 
     /// <summary>
-    /// 什么
+    /// 设置加载进度条的百分比
     /// </summary>
     /// <param name="percentage"></param>
     public void SetPercentage(float percentage)
@@ -52,11 +52,6 @@ public class LoadingBar : MonoBehaviour
             m_text.text = mTips[Random.Range(0, 5)] + "(" + m_image.fillAmount * 100 + "%" + ")";
         }
     }
-    void OnLevelWasLoaded(int level)
-    {
-
-
-    }
 
 }
 
@@ -65,10 +60,16 @@ public class LoadingBar : MonoBehaviour
 /// </summary>
 /// <param name="level"></param>
 public delegate void LevelLoadedDelegate(int level);
+
+/// <summary>
+/// 场景切换加载的管理，同时处理了预加载和进度条。已经导出luawrap
+/// </summary>
 public class LoadSceneMgr
 {
     static LoadSceneMgr m_instance;
-
+    /// <summary>
+    /// 场景加载单例，便于在lua中调用
+    /// </summary>
     public static LoadSceneMgr Instance
     {
         get
@@ -96,16 +97,19 @@ public class LoadSceneMgr
     /// <summary>
     /// 判断是否由LoadSceneMgr控制载入;
     /// </summary>
-    public bool IsStartLoad = false;
+    //public bool IsStartLoad = false;
 
     //用于回调的
-    private LevelLoadedDelegate m_onLevelLoaded;
+    private LevelLoadedDelegate m_onLevelLoadedFunc;
     
     #region //公共函数初始化
-
+    /// <summary>
+    /// 注册加载完成所有资源后调用的函数，这里应该是ulua函数的调用。
+    /// </summary>
+    /// <param name="func"></param>
     public void RegLevelLoaded(LevelLoadedDelegate func)
     {
-        m_onLevelLoaded = func;
+        m_onLevelLoadedFunc = func;
     }
 
     private void init(GameObject load)
@@ -119,35 +123,50 @@ public class LoadSceneMgr
         m_bar = load.AddComponent<LoadingBar>();
         GameObject.DontDestroyOnLoad(load);
     }
-
+    /// <summary>
+    /// 设置需要载入场景的名字
+    /// </summary>
+    /// <param name="sceneName"></param>
     public void SetLoadScene(string sceneName)
     {
         m_levelToLoad = sceneName;
         m_levelAssetToLoad = "Assets/Scenes/" + m_levelToLoad + "/" + m_levelToLoad + ".unity";
     }
-
+    /// <summary>
+    /// 设置需要载入的场景名，及场景所需的assetbundle资源名称
+    /// </summary>
+    /// <param name="assetName">资源名</param>
+    /// <param name="sceneName">场景level名</param>
     public void SetLoadScene(string assetName, string sceneName)
     {
         m_levelAssetToLoad = assetName;
         m_levelToLoad = sceneName;
     }
 
+    /// <summary>
+    /// 在添加预加载对象
+    /// </summary>
+    /// <param name="prefabName">prefab的相对路径及文件名</param>
+    /// <param name="count">在池中实例化对象的个数，按需填写</param>
     public void AddPreLoadPrefab(string prefabName, int count = 0)
     {
         m_resourceList.Add(prefabName);
         m_goCountInPool.Add(count);
     }
 
-
+    /// <summary>
+    /// 开始进入加载流程，首先载入空的场景，清理掉原来场景中的资源
+    /// </summary>
     public void StartLoad()
     {
-        IsStartLoad = true;
         Application.LoadLevel("empty");
     }
     #endregion
     
     #region 为了处理Loading背景和进度条而编写的函数(部分由GameManager调用)
-    //载入了空场景
+    /// <summary>
+    /// 载入空场景之后，显示loading背景和进度条
+    /// </summary>
     public void OnLoadEmptylevel()
     {
         ResourceManager.Instance.ClearAllAsset();
@@ -168,7 +187,6 @@ public class LoadSceneMgr
         }
         m_bar.SetPercentage(0.1f);
         Debug.Log("Time StartLoadLevel:" + Time.realtimeSinceStartup);
-        //因为为unity载入资源一定需要audiolistener
         yield return new WaitForEndOfFrame();
         //如果场景特别大，这里应该用
         Application.LoadLevel(m_levelToLoad);
@@ -176,7 +194,11 @@ public class LoadSceneMgr
 
     int m_resIndex;
     int m_level;
-    //这里的0.3和0.7只是预估不同部分加载的时间，并不是精确的数字，为了进度条好看而已 Lorry
+    /// <summary>
+    /// 场景加载完后，处理预加载资源，现在是按场景占据进度条0.3，预加载资源占据0.7来划分的。
+    /// 并不是精确的数字，为了进度条好看而已 Lorry
+    /// </summary>
+    /// <param name="level"></param>
     public void OnLoadScnene(int level)
     {
         Debug.Log("Time LoadLevelEnd:" + Time.realtimeSinceStartup);
@@ -233,8 +255,8 @@ public class LoadSceneMgr
             ResourceManager.Instance.ReleaseAsset(m_levelAsset);
             m_levelAsset = null;
         }
-        //处理map的无效shader
-        GameObject _gameobject = GameObject.Find("map");
+        ////处理map的无效shader
+        //GameObject _gameobject = GameObject.Find("map");
         //if (_gameobject != null)
         //    ProjectileBase.excuteShader(_gameobject);
         //资源加载完成之后，所有camera 的初始化和其他变化还是交给lua处理。
@@ -242,7 +264,7 @@ public class LoadSceneMgr
         GameObject.Destroy(m_bar.gameObject);
 
         //这里才调用lua的对应函数做进度;
-        m_onLevelLoaded(m_level);
+        m_onLevelLoadedFunc(m_level);
         //ioo.gameManager.uluaMgr.OnLevelLoaded(m_level);
     }
     #endregion

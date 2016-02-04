@@ -1,5 +1,5 @@
 /// <Licensing>
-/// © 2011 (Copyright) Path-o-logical Games, LLC
+/// ?2011 (Copyright) Path-o-logical Games, LLC
 /// Licensed under the Unity Asset Package Product License (the "License");
 /// You may not use this file except in compliance with the License.
 /// You may obtain a copy of the License at: http://licensing.path-o-logical.com
@@ -27,7 +27,7 @@ namespace PathologicalGames
 
 
         /// <summary>
-        /// The prefab this instance came from. Unfortunatly we can't use drag&drop 
+        /// The prefab this instance come from. Unfortunatly we can't use drag and drop
         /// because Unity will create a self-reference instead of keeping a dependable
         /// reference to the actual prefab.
         /// </summary>

@@ -16,7 +16,7 @@ public class TBDragToMove : MonoBehaviour
     // are we being dragged?
     bool dragging = false;
     FingerGestures.Finger draggingFinger = null;
-    GestureRecognizer gestureRecognizer;
+    //GestureRecognizer gestureRecognizer;
 
     bool oldUseGravity = false;
     bool oldIsKinematic = false;

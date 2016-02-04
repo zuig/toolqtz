@@ -130,7 +130,7 @@ namespace PathologicalGames
         public Dictionary<object, bool> _editorListItemStates = new Dictionary<object, bool>();
 
         /// <summary>
-        /// Readonly access to prefab pools via a dictionary<string, PrefabPool>.
+        /// Readonly access to prefab pools via a dictionary(string,PrefabPool).
         /// </summary>
         public Dictionary<string, PrefabPool> prefabPools
         {
@@ -782,7 +782,7 @@ namespace PathologicalGames
         ///		
         /// Despawned instances are removed from the primary list.
         /// </summary>
-        /// <param name="item">The transform of the gameobject to process</param>
+        /// <param name="instance">The transform of the gameobject to process</param>
         public void Despawn(Transform instance)
         {
             // Find the item and despawn it
@@ -839,7 +839,7 @@ namespace PathologicalGames
         ///   If the passed object is managed by this SpawnPool, it will be 
         ///   deactivated and made available to be spawned again.
         /// </description>
-        /// <param name="item">The transform of the instance to process</param>
+        /// <param name="instance">The transform of the instance to process</param>
         /// <param name="seconds">The time in seconds to wait before despawning</param>
         public void Despawn(Transform instance, float seconds)
         {
@@ -899,7 +899,7 @@ namespace PathologicalGames
         /// <description>
         ///	Returns true if the passed transform is currently spawned.
         /// </description>
-        /// <param name="item">The transform of the gameobject to test</param>
+        /// <param name="instance">The transform of the gameobject to test</param>
         public bool IsSpawned(Transform instance)
         {
             return this._spawned.Contains(instance);
@@ -1639,7 +1639,11 @@ namespace PathologicalGames
         }
 
 
-
+        /// <summary>
+        /// Spawns a NEW instance of this prefab and adds it to the spawned list.
+        /// </summary>
+        /// <returns>The new instance's Transform</returns>
+        public Transform SpawnNew() { return this.SpawnNew(Vector3.zero, Quaternion.identity); }
         /// <summary>
         /// Spawns a NEW instance of this prefab and adds it to the spawned list.
         /// The new instance is placed at the passed position and rotation
@@ -1653,7 +1657,6 @@ namespace PathologicalGames
         /// passed prefab, then this method will return null if the limit is
         /// reached.
         /// </returns>
-        public Transform SpawnNew() { return this.SpawnNew(Vector3.zero, Quaternion.identity); }
         public Transform SpawnNew(Vector3 pos, Quaternion rot)
         {
             // Handle limiting if the limit was used and reached.
@@ -2006,8 +2009,8 @@ namespace PathologicalGames
         /// Used to get a prefab when the user is not sure if the prefabName is used.
         /// This is faster than checking Contains(prefabName) and then accessing the dict
         /// </summary>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
+        /// <param name="prefabName">dictionary的key</param>
+        /// <param name="prefab">如果有这个对象，获得其transform</param>
         /// <returns></returns>
         public bool TryGetValue(string prefabName, out Transform prefab)
         {

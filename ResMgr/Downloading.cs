@@ -35,6 +35,9 @@ public class Downloading : MonoBehaviour {
     private Text _loadingTips = null;
     private Image _process = null;
     private bool _finish = false;
+    /// <summary>
+    /// 判断更新流程是否完成
+    /// </summary>
     public bool IsFinish() {
         return _finish;
     }
@@ -507,12 +510,18 @@ public class Downloading : MonoBehaviour {
         return System.IO.Path.Combine(Application.persistentDataPath + "/resources/", relaPath).Replace("\\", "/");
     }
 
+    /// <summary>
+    /// 因为AssetBundle从文件创建AssetBundle接口还有问题，所以这里先提供方便函数
+    /// </summary>
     public static AssetBundle UtilCreateBundleFromFile(string path)
     {
         byte[] data = System.IO.File.ReadAllBytes(path);
         return AssetBundle.CreateFromMemoryImmediate(data);
     }
 
+    /// <summary>
+    /// 存放运行lua路径的
+    /// </summary>
     public static string luaPath
     {
         get{
@@ -522,7 +531,9 @@ public class Downloading : MonoBehaviour {
                 return Application.persistentDataPath + "/lua/"; 
         }
     }
-
+    /// <summary>
+    /// 将json格式的文件，转换为可使用的类型对象
+    /// </summary>
     public static T UtilJson2Object<T>(string content)
     {
         return LitJson.JsonMapper.ToObject<T>(content);
